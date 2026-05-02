@@ -278,8 +278,8 @@ function lightboxCommands(e) {
 }
 
 function handlebtns(target) {
-  if (target.classList.contains("mg-next")) return "next";
   if (target.classList.contains("mg-prev")) return "prev";
+  if (target.classList.contains("mg-next")) return "next";
 }
 function handleKeys(key) {
   if (key === "ArrowLeft" || key === "ArrowUp") return "prev";
@@ -290,7 +290,7 @@ function handleSwipe(endSwipePosition) {
   const delta = endSwipePosition - startSwipePosition;
   const threshold = 50;
   startSwipePosition = undefined;
-  if (Math.abs(delta) > threshold) return delta > 0 ? "next" : "prev";
+  if (Math.abs(delta) > threshold) return delta > 0 ? "prev" : "next";
 }
 
 function switchLightboxImg(direction) {
@@ -319,9 +319,8 @@ function closeModal() {
 // ----> créer les boutons d'indication images carousel
 // ----> lancer l'animation du carousel
 // ----> créer les filtres de la galerie
-window.addEventListener(
-  "load",
-  () => createBtnIndicator(),
-  carouselSlide(),
-  createFilterBtn(),
-);
+window.addEventListener("load", () => {
+  createBtnIndicator();
+  carouselSlide();
+  createFilterBtn();
+});
