@@ -212,6 +212,7 @@ const nextLBImgBtn = lightboxWrapper.querySelector(".mg-next");
 const prevLBImgBtn = lightboxWrapper.querySelector(".mg-prev");
 
 galleryImgs.forEach((img) => img.addEventListener("click", openModal));
+galleryImgs.forEach((img) => img.addEventListener("keydown", openModal));
 lightbox.addEventListener("close", closeModal);
 nextLBImgBtn.addEventListener("click", lightboxCommands);
 prevLBImgBtn.addEventListener("click", lightboxCommands);
@@ -227,6 +228,8 @@ let currentImgIndex;
 let startSwipePosition = undefined;
 
 function openModal(e) {
+  if (e.type === "keydown" && e.key !== "Enter") return;
+
   lightboxActive = true;
   lightboxImgs = galleryImgs.filter((img) => !img.classList.contains("hidden"));
   document.body.style.overflow = "hidden";
@@ -291,7 +294,13 @@ function handleSwipe(endSwipePosition) {
 }
 
 function switchLightboxImg(direction) {
-  direction === "next" ? currentImgIndex++ : currentImgIndex--;
+  if (direction === "next") {
+    currentImgIndex++;
+    nextLBImgBtn.focus();
+  } else {
+    currentImgIndex--;
+    prevLBImgBtn.focus();
+  }
 
   if (currentImgIndex < 0) currentImgIndex = lightboxImgs.length - 1;
   if (currentImgIndex > lightboxImgs.length - 1) currentImgIndex = 0;
