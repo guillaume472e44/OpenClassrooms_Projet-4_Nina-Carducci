@@ -34,6 +34,10 @@ function createBtnIndicator() {
     btn.dataset.slideTo = index;
     btn.dataset.moveTo = "target";
     if (index === 0) btn.classList.add("active");
+    const span = document.createElement("span");
+    span.textContent = `slide to ${index}`;
+    span.classList.add("sr-only");
+    btn.appendChild(span);
     btnsIndicatorContainer.appendChild(btn);
     btn.addEventListener("click", moveSlide);
   });
@@ -240,6 +244,8 @@ function openModal(e) {
   currentImageDisplay();
 
   lightbox.showModal();
+
+  lightbox.focus();
 }
 
 function currentImageDisplay() {
